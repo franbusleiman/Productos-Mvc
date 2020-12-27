@@ -1,4 +1,4 @@
-package franciscobusleiman.mvcProductos.mvcProductos.command;
+package franciscobusleiman.mvcProductos.mvcProductos.commands;
 
 public class CategoryCommand {
     private Long id;

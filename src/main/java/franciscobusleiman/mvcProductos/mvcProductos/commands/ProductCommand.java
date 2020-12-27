@@ -1,4 +1,4 @@
-package franciscobusleiman.mvcProductos.mvcProductos.command;
+package franciscobusleiman.mvcProductos.mvcProductos.commands;
 
 import franciscobusleiman.mvcProductos.mvcProductos.domain.Category;
 
@@ -6,16 +6,16 @@ public class ProductCommand {
     private Long id;
     private String description;
     private int price;
-    private Category category;
+    private CategoryCommand category;
 
     public ProductCommand(){
     }
 
-    public Category getCategory() {
+    public CategoryCommand getCategory() {
         return category;
     }
 
-    public void setCategory(Category category) {
+    public void setCategory(CategoryCommand category) {
         this.category = category;
     }
 
