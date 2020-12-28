@@ -14,14 +14,14 @@ import java.util.Optional;
 import java.util.Set;
 
 @Service
-public class ProductService {
+public class ProductServiceImpl implements ProductService{
 
     private final ProductRepository productRepository;
     private final ProductToProductCommand productToProductCommand;
     private final ProductCommandToProduct productCommandToProduct;
     private final CategoryCommandToCategory categoryCommandToCategory;
 
-    public ProductService(ProductRepository productRepository, ProductToProductCommand productToProductCommand, ProductCommandToProduct productCommandToProduct, CategoryCommandToCategory categoryCommandToCategory){
+    public ProductServiceImpl(ProductRepository productRepository, ProductToProductCommand productToProductCommand, ProductCommandToProduct productCommandToProduct, CategoryCommandToCategory categoryCommandToCategory){
         this.productRepository = productRepository;
         this.productToProductCommand = productToProductCommand;
         this.productCommandToProduct = productCommandToProduct;
