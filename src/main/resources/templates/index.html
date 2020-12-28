@@ -17,7 +17,7 @@
 
         <tr th:each="product : ${product}">
             <td th:text="${product.getDescription()}"></td>
-            <td >SHOW </td>
+            <td th:href="@{'/product/' + ${product.getId()} + '/show'}">SHOW </td>
             <td >UPDATE</td>
             <td >DELETE</td>
 
