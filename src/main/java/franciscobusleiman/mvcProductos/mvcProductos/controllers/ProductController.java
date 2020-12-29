@@ -1,7 +1,9 @@
 package franciscobusleiman.mvcProductos.mvcProductos.controllers;
 
 import franciscobusleiman.mvcProductos.mvcProductos.commands.ProductCommand;
+import franciscobusleiman.mvcProductos.mvcProductos.domain.Category;
 import franciscobusleiman.mvcProductos.mvcProductos.domain.Product;
+import franciscobusleiman.mvcProductos.mvcProductos.services.CategoryService;
 import franciscobusleiman.mvcProductos.mvcProductos.services.ProductService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,9 +15,11 @@ import java.util.Set;
 public class ProductController {
 
     private final ProductService productService;
+    private final CategoryService categoryService;
 
-    public ProductController(ProductService productService){
+    public ProductController(ProductService productService, CategoryService categoryService){
         this.productService = productService;
+        this.categoryService = categoryService;
     }
 
     @GetMapping({"", "index", "/index"})
@@ -43,5 +47,15 @@ public class ProductController {
         productService.delete(product);
 
         return "redirect:/index";
+    }
+    @GetMapping("/product/newRecipe/form")
+    public String newRecipe(Model model){
+
+        ProductCommand productCommand = new ProductCommand();
+
+        model.addAttribute("product", productCommand);
+        model.addAttribute("categories", categoryService.getCategories());
+
+        return "product/form";
     }
 }

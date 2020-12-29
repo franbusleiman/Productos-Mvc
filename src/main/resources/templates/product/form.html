@@ -15,12 +15,14 @@
 
         Description: <input type="text" th:field="*{description}">
         <br>
+        <br>
         Price: <input type="text" th:field="*{price}">
         <br>
-       <select th:field="*{category}">
-           <option th:each="categoria" : ${categories}
-                   th:value="categoria"
-                   th:text="${categoria.getDescription}"></option>
+        <br>
+     Category:  <select th:field="*{category}">
+           <option th:each="categoria : ${categories}"
+                   th:value="${categoria}"
+                   th:text="${categoria.getDescription()}"></option>
        </select>
 
 

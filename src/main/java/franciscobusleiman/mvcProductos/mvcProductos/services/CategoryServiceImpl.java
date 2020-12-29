@@ -17,7 +17,7 @@ public class CategoryServiceImpl implements CategoryService{
     @Override
     public Set<Category> getCategories() {
       Set<Category> categories = new HashSet<>();
-      categoryRepository.findAll().forEach(category -> categories.add(category));
+      categoryRepository.findAll().forEach(categories::add);
 
       return categories;
     }
