@@ -63,10 +63,11 @@ public ProductCommand saveOrUpdate(ProductCommand productCommand){
             product.setPrice(productCommand.getPrice());
             if(productCommand.getCategory() != null) {
                 product.setCategory(categoryCommandToCategory.convert(productCommand.getCategory()));
-            }
+                product.getCategory().getProducts().add(product);            }
         }
         else{
             product = productCommandToProduct.convert(productCommand);
+            product.getCategory().getProducts().add(product);
         }
 
         ProductCommand productCommand1 = productToProductCommand.convert(productRepository.save(product));
