@@ -49,12 +49,24 @@ public class ProductController {
         return "redirect:/index";
     }
     @GetMapping("/product/newRecipe/form")
-    public String newRecipe(Model model){
+    public String newProduct(Model model){
 
         ProductCommand productCommand = new ProductCommand();
 
         model.addAttribute("product", productCommand);
         model.addAttribute("categories", categoryService.getCategories());
+
+        return "product/form";
+    }
+    @GetMapping("/product/{id}/form")
+    public String updateProduct(@PathVariable int id, Model model){
+
+
+        ProductCommand productCommand = productService.findCommandById(id);
+
+        model.addAttribute("product", productCommand);
+        model.addAttribute("categories", categoryService.getCategories());
+
 
         return "product/form";
     }
