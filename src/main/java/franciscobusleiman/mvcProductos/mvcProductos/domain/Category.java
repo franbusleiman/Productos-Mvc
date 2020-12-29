@@ -1,7 +1,9 @@
 package franciscobusleiman.mvcProductos.mvcProductos.domain;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 public class Category {
@@ -10,8 +12,8 @@ public class Category {
     private Long id;
     private String description;
 
-    @OneToOne(mappedBy = "category")
-    private Product product;
+    @OneToMany(mappedBy = "category")
+    private Set<Product> products = new HashSet<>();
 
     public Category(){}
 
@@ -35,12 +37,12 @@ public class Category {
         this.id = id;
     }
 
-    public Product getProduct() {
-        return product;
+    public Set<Product> getProducts() {
+        return products;
     }
 
-    public void setProduct(Product product) {
-        this.product = product;
+    public void setProduct(Set<Product> products) {
+        this.products = products;
     }
 
     @Override
@@ -61,7 +63,7 @@ public class Category {
         return "Category{" +
                 "id=" + id +
                 ", description='" + description + '\'' +
-                ", product=" + product +
+                ", products=" + products +
                 '}';
     }
 }

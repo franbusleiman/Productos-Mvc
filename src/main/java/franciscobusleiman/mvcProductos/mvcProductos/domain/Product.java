@@ -13,7 +13,7 @@ public class Product {
     private Long id;
     private String description;
     private int price;
-    @OneToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "category_id")
     private Category category;
 
