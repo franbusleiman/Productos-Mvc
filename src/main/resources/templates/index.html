@@ -15,11 +15,11 @@
 
     <table th:width="400">
 
-        <tr th:each="product : ${product}">
+        <tr th:each="product : ${products}">
             <td th:text="${product.getDescription()}"></td>
-            <td th:href="@{'/product/' + ${product.getId()} + '/show'}">SHOW </td>
-            <td th:href="@{'/product/' + ${product.getId()} + '/form'}">UPDATE</td>
-            <td th:href="@{'/product/' + ${product.getId()} + '/delete'}" >DELETE</td>
+            <td><a th:href="@{'/product/' + ${product.getId()} + '/show'}">SHOW </a></td>
+            <td><a  th:href="@{'/product/' + ${product.getId()} + '/form'}">UPDATE</a></td>
+            <td><a  th:href="@{'/product/' + ${product.getId()} + '/delete'}">DELETE</a></td>
 
         </tr>
 

@@ -5,10 +5,13 @@ import franciscobusleiman.mvcProductos.mvcProductos.domain.Category;
 import franciscobusleiman.mvcProductos.mvcProductos.domain.Product;
 import franciscobusleiman.mvcProductos.mvcProductos.services.CategoryService;
 import franciscobusleiman.mvcProductos.mvcProductos.services.ProductService;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.Set;
 @Controller
@@ -69,5 +72,13 @@ public class ProductController {
 
 
         return "product/form";
+    }
+
+    @PostMapping("/product/saveRecipe")
+    public String SaveRecipe(@ModelAttribute ProductCommand productCommand){
+
+        productService.saveOrUpdate(productCommand);
+
+        return "redirect:/index";
     }
 }

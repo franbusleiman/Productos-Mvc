@@ -5,7 +5,9 @@ import franciscobusleiman.mvcProductos.mvcProductos.commands.ProductCommand;
 import franciscobusleiman.mvcProductos.mvcProductos.converters.CategoryCommandToCategory;
 import franciscobusleiman.mvcProductos.mvcProductos.converters.ProductCommandToProduct;
 import franciscobusleiman.mvcProductos.mvcProductos.converters.ProductToProductCommand;
+import franciscobusleiman.mvcProductos.mvcProductos.domain.Category;
 import franciscobusleiman.mvcProductos.mvcProductos.domain.Product;
+import franciscobusleiman.mvcProductos.mvcProductos.repositories.CategoryRepository;
 import franciscobusleiman.mvcProductos.mvcProductos.repositories.ProductRepository;
 import org.springframework.stereotype.Service;
 
@@ -20,12 +22,14 @@ public class ProductServiceImpl implements ProductService{
     private final ProductToProductCommand productToProductCommand;
     private final ProductCommandToProduct productCommandToProduct;
     private final CategoryCommandToCategory categoryCommandToCategory;
+    private final CategoryRepository categoryRepository;
 
-    public ProductServiceImpl(ProductRepository productRepository, ProductToProductCommand productToProductCommand, ProductCommandToProduct productCommandToProduct, CategoryCommandToCategory categoryCommandToCategory){
+    public ProductServiceImpl(ProductRepository productRepository, ProductToProductCommand productToProductCommand, ProductCommandToProduct productCommandToProduct, CategoryCommandToCategory categoryCommandToCategory, CategoryRepository categoryRepository){
         this.productRepository = productRepository;
         this.productToProductCommand = productToProductCommand;
         this.productCommandToProduct = productCommandToProduct;
         this.categoryCommandToCategory = categoryCommandToCategory;
+        this.categoryRepository = categoryRepository;
     }
 
     public Product findById(int id){
@@ -55,18 +59,22 @@ public ProductCommand saveOrUpdate(ProductCommand productCommand){
         Optional<Product> productOptional = listAllProducts().stream()
                                              .filter(product -> product.getId().equals(productCommand.getId())).findFirst();
 
-    Product product = productOptional.get();
+       Product product;
 
         if(productOptional.isPresent()){
+
+            product = productOptional.get();
 
             product.setDescription(productCommand.getDescription());
             product.setPrice(productCommand.getPrice());
             if(productCommand.getCategory() != null) {
-                product.setCategory(categoryCommandToCategory.convert(productCommand.getCategory()));
+                Category category = categoryRepository.findById(productCommand.getCategory().getId()).get();
+                product.setCategory(category);
                 product.getCategory().getProducts().add(product);            }
         }
         else{
             product = productCommandToProduct.convert(productCommand);
+            product.setCategory(categoryRepository.findById(productCommand.getCategory().getId()).get());
             product.getCategory().getProducts().add(product);
         }
 

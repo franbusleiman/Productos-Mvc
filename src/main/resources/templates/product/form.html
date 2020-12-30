@@ -11,7 +11,9 @@
 
     <br>
     <br>
-    <form th:object="${product}" th:action="@{product/saveRecipe}" th:method="post">
+    <form th:object="${product}" th:action="@{/product/saveRecipe}" th:method="post">
+
+        <input type="hidden" th:field="*{id}">
 
         Description: <input type="text" th:field="*{description}">
         <br>
@@ -19,14 +21,14 @@
         Price: <input type="text" th:field="*{price}">
         <br>
         <br>
-     Category:  <select th:field="*{category}">
+     Category:  <select th:field="*{category.id}">
            <option th:each="categoria : ${categories}"
-                   th:value="${categoria}"
+                   th:value="${categoria.id}"
                    th:text="${categoria.getDescription()}"></option>
        </select>
 
 
-
+<input type="submit" value="SEND">
 
     </form>
 
